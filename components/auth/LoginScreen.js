@@ -6,8 +6,7 @@ const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onSignUp = () => {
-    // firebase.auth().signInWithEmailAndPassword(email, password);
+  const onSignIn = () => {
     console.log("User signed In");
   };
 
@@ -30,7 +29,7 @@ const LoginScreen = ({ navigation }) => {
 
         <Button
           style={form.button}
-          onPress={() => onSignUp()}
+          onPress={() => onSignIn()}
           title="Sign In"
         />
       </View>
