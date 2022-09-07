@@ -15,13 +15,19 @@ const RegisterScreen = (props) => {
     const auth = getAuth();
 
     try {
-      const result = await createUserWithEmailAndPassword(auth, email, password)
+      const result = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       if (result) console.log(result.user.email);
-    } catch(error) {
+    } catch (error) {
       console.log(error.message);
     }
-      
-    }
+    setName("");
+    setEmail("");
+    setPassword("");
+  };
 
   return (
     <View style={container.center}>
@@ -34,16 +40,19 @@ const RegisterScreen = (props) => {
                     onChangeText={(username) => setUsername(username)}
                 /> */}
         <TextInput
+          value={name}
           style={form.textInput}
           placeholder="name"
           onChangeText={(name) => setName(name)}
         />
         <TextInput
+          value={email}
           style={form.textInput}
           placeholder="email"
           onChangeText={(email) => setEmail(email)}
         />
         <TextInput
+          value={password}
           style={form.textInput}
           placeholder="password"
           secureTextEntry={true}

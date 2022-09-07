@@ -15,11 +15,13 @@ const LoginScreen = ({ navigation }) => {
     <View style={container.center}>
       <View style={container.formCenter}>
         <TextInput
+          value={email}
           style={form.textInput}
           placeholder="email"
           onChangeText={(email) => setEmail(email)}
         />
         <TextInput
+          value={password}
           style={form.textInput}
           placeholder="password"
           secureTextEntry={true}

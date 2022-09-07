@@ -1,17 +1,17 @@
+import react, { useState, useEffect } from "react";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "./components/auth/LoginScreen";
-// import { initializeApp } from "firebase/app";
 import RegisterScreen from "./components/auth/RegisterScreen";
-import { LogBox } from "react-native";
-
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { initializeApp } from "firebase/app";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   initializeAuth,
   getReactNativePersistence,
 } from "firebase/auth/react-native";
+import { View, Text } from "react-native";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -26,31 +26,64 @@ const firebaseConfig = {
 // initialize firebase app
 const app = initializeApp(firebaseConfig);
 
-// initialize auth
-export const auth = initializeAuth(app, {
-  persistence: getReactNativePersistence(AsyncStorage)
+// initialize asyncAuth
+export const asyncAuth = initializeAuth(app, {
+  persistence: getReactNativePersistence(AsyncStorage),
 });
 
-// export { auth };
-  
-// LogBox.ignoreLogs([
-//   "Warning: Async Storage has been extracted from react-native core",
-// ]);
+// initialize auth
+const auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+  } else {
+  }
+});
 
 const Stack = createStackNavigator();
 
 const App = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        setLoggedIn(false);
+        setLoaded(true);
+      } else {
+        setLoggedIn(true);
+        setLoaded(true);
+      }
+    });
+  }, []);
+  
+  if (!loaded) { 
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
+  if (!loggedIn) {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="LoginScreen">
+          <Stack.Screen
+            name="LoginScreen"
+            component={LoginScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="LoginScreen">
-        <Stack.Screen
-          name="LoginScreen"
-          component={LoginScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Text>User Logged In</Text>
+    </View>
   );
 };
 
