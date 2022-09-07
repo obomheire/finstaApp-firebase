@@ -6,6 +6,7 @@ import LoginScreen from "./components/auth/LoginScreen";
 import RegisterScreen from "./components/auth/RegisterScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   initializeAuth,
@@ -30,6 +31,9 @@ const app = initializeApp(firebaseConfig);
 export const asyncAuth = initializeAuth(app, {
   persistence: getReactNativePersistence(AsyncStorage),
 });
+
+// Initialize Cloud Firestore and get a reference to the service
+export const db = getFirestore(app);
 
 // initialize auth
 const auth = getAuth();

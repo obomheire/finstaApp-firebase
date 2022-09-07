@@ -1,8 +1,10 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { Button, Text, TextInput, View } from "react-native";
-// import { Snackbar } from "react-native-paper";
+// import { doc, setDoc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { container, form } from "../styles";
+import { db } from "../../App";
 
 const RegisterScreen = (props) => {
   const [email, setEmail] = useState("");
@@ -20,7 +22,13 @@ const RegisterScreen = (props) => {
         email,
         password
       );
-      if (result) console.log(result.user.email);
+      if (result) {
+        const docRef = await addDoc(collection(db, "users"), {
+          name,
+          email,
+        });
+        console.log("Document written with ID: ", docRef.id);
+      }
     } catch (error) {
       console.log(error.message);
     }
