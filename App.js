@@ -13,16 +13,25 @@ import {
   getReactNativePersistence,
 } from "firebase/auth/react-native";
 import { View, Text } from "react-native";
+import {
+  APIKEY,
+  AUTHDOMAIN,
+  PROJECTID,
+  STORAGEBUCKET,
+  MESSAGINGSENDERID,
+  APPID,
+  MEASUREMENTID
+} from "@env";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAjxBd-aLj2JQjPBzr62sMzc8KKrBM2pe8",
-  authDomain: "finstaapp-a28c1.firebaseapp.com",
-  projectId: "finstaapp-a28c1",
-  storageBucket: "finstaapp-a28c1.appspot.com",
-  messagingSenderId: "339177375378",
-  appId: "1:339177375378:web:f506094c22a06439a9484b",
-  measurementId: "G-RG2HB06FDV",
+  apiKey: APIKEY,
+  authDomain: AUTHDOMAIN,
+  projectId: PROJECTID,
+  storageBucket: STORAGEBUCKET,
+  messagingSenderId: MESSAGINGSENDERID,
+  appId: APPID,
+  measurementId: MEASUREMENTID,
 };
 // initialize firebase app
 const app = initializeApp(firebaseConfig);

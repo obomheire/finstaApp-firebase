@@ -1,7 +1,6 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { Button, Text, TextInput, View } from "react-native";
-// import { doc, setDoc } from "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore";
 import { container, form } from "../styles";
 import { db } from "../../App";
